@@ -1,0 +1,34 @@
+# ==========================================
+# 1. Framework Web y Servidor (Backend)
+# ==========================================
+fastapi
+uvicorn[standard]
+pydantic
+python-multipart
+
+# ==========================================
+# 2. Google Cloud & ADK (Modalidad 2.2)
+# ==========================================
+google-cloud-aiplatform
+google-adk
+google-cloud-secret-manager
+google-cloud-logging
+
+# ==========================================
+# 3. Seguridad y Autenticación (JWT)
+# ==========================================
+python-jose[cryptography]
+passlib[bcrypt]
+
+# ==========================================
+# 4. Resiliencia y Control de Tráfico
+# ==========================================
+slowapi          # Para Rate Limiting
+pybreaker        # Para Circuit Breaker
+
+# ==========================================
+# 5. Utilidades y Entorno
+# ==========================================
+python-dotenv
+requests
+httpx
