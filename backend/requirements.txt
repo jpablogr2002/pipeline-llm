@@ -1,0 +1,25 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-multipart
+
+# Google Cloud & ADK
+google-cloud-aiplatform
+google-adk
+google-cloud-secret-manager
+google-cloud-logging
+
+# Seguridad
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt==4.0.1
+
+# Resiliencia
+slowapi
+pybreaker
+
+# Utilidades
+python-dotenv
+httpx
