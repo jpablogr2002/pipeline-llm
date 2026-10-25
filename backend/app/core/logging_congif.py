@@ -1,6 +1,6 @@
 import logging
 import sys
-from pythonjsonlogger import jsonlogger
+from pythonjsonlogger.json import JsonFormatter
 
 def setup_logging():
     logger = logging.getLogger()
@@ -13,7 +13,7 @@ def setup_logging():
     logHandler = logging.StreamHandler(sys.stdout)
     
     # Formato JSON estructurado
-    formatter = jsonlogger.JsonFormatter(
+    formatter = JsonFormatter(
         '%(asctime)s %(levelname)s %(name)s %(message)s',
         rename_fields={"asctime": "timestamp", "levelname": "severity", "name": "logger"}
     )

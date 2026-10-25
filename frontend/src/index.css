@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  /* Tu paleta de colores */
+  --color-brand-dark: #03045e;
+  --color-brand-blue: #0077b6;
+  --color-brand-cyan: #00b4d8;
+  --color-brand-light: #90e0ef;
+  --color-brand-pale: #caf0f8;
+  
+  /* Fuente Sans-Serif */
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+/* Estilos base del cuerpo */
+body {
+  @apply bg-gray-50 text-gray-900;
+  font-family: var(--font-sans);
+}

@@ -8,9 +8,11 @@ from jose import JWTError, jwt
 
 from app.core.config import settings
 from app.core.security import verify_password, get_user, create_access_token, fake_users_db
-from app.services.pipeline import process_article_pipeline
+from app.services.pipeline import process_article_pipeline, RESULTS_DB
+from app.services.db import obtener_historial, calcular_metricas
 
 import logging
+import uuid
 
 router = APIRouter()
 limiter = Limiter(key_func=get_remote_address)
@@ -57,9 +59,31 @@ async def ingest_article(
     background_tasks: BackgroundTasks,
     current_user: dict = Depends(get_current_user)
 ):
-    background_tasks.add_task(process_article_pipeline, payload.model_dump())
+    task_id = str(uuid.uuid4())
+    background_tasks.add_task(process_article_pipeline, payload.model_dump(), task_id)
     logger.info(
         "Webhook recibido",
         extra={"event_type": "WEBHOOK_RECEIVED", "user": current_user["username"]}
     )
-    return {"status": "received", "message": f"Artículo '{payload.title}' en cola"}
+    return {"status": "received", "task_id": task_id}
+
+@router.get("/webhook/result/{task_id}")
+async def get_result(task_id: str, current_user: dict = Depends(get_current_user)):
+    result = RESULTS_DB.get(task_id)
+    if not result:
+        return {"status": "processing"} # Aún no termina
+    
+    return result
+
+@router.get("/dashboard/metrics")
+async def get_dashboard_metrics(current_user: dict = Depends(get_current_user)):
+    # Consultamos las métricas reales a Firestore
+    metricas = calcular_metricas()
+    historial_reciente = obtener_historial(limite=5) # Últimos 5
+
+    return {
+        "total_procesados": metricas["total_procesados"],
+        "latencia_promedio_ms": metricas["latencia_promedio_ms"],
+        "costo_estimado_usd": metricas["costo_estimado_usd"],
+        "historial": historial_reciente
+    }

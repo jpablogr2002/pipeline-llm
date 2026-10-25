@@ -5,7 +5,7 @@ import vertexai
 from vertexai.generative_models import GenerativeModel
 from app.core.resilience import llm_circuit_breaker
 
-vertexai.init(project=os.getenv("GCP_PROJECT_ID"), location=os.getenv("GCP_REGION", "us-central1"))
+vertexai.init(project=os.getenv("GCP_PROJECT_ID"), location=os.getenv("GCP_REGION"))
 logger = logging.getLogger("app.agent.tools")
 
 def analizar_con_llm(texto: str) -> str:
@@ -14,7 +14,7 @@ def analizar_con_llm(texto: str) -> str:
 
     # Definimos la función interna que será protegida por el Circuit Breaker
     def _call_vertex_ai():
-        model = GenerativeModel("gemini-1.5-flash")
+        model = GenerativeModel("gemini-3.5-flash")
         prompt = f"Analiza este artículo y devuelve JSON con categoria, sentimiento y resumen_seo (max 160 chars): {texto[:2000]}"
         response = model.generate_content(prompt)
         return response

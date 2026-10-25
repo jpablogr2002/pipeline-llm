@@ -1,7 +1,9 @@
 # ==========================================
-# Variables de Entorno
+# Variables de Entorno y Rutas
 # ==========================================
-VENV_DIR = venv
+BACKEND_DIR = backend
+FRONTEND_DIR = frontend
+VENV_DIR = .venv
 PYTHON = $(VENV_DIR)/bin/python
 PIP = $(VENV_DIR)/bin/pip
 
@@ -10,11 +12,11 @@ PIP = $(VENV_DIR)/bin/pip
 # ==========================================
 # Comandos Principales
 # ==========================================
-
 help:
 	@echo "Comandos disponibles:"
 	@echo "  make install   - Crea el entorno virtual e instala dependencias"
-	@echo "  make run       - Levanta el servidor FastAPI en modo desarrollo"
+	@echo "  make backend       - Levanta el servidor FastAPI en modo desarrollo"
+	@echo "  make frontend      - Levanta el servidor de React en modo desarrollo"
 	@echo "  make freeze    - Actualiza requirements.txt con lo instalado"
 	@echo "  make clean     - Elimina el entorno virtual y archivos temporales"
 
@@ -25,12 +27,16 @@ install:
 	$(PIP) install --upgrade pip
 	@echo "Instalando dependencias..."
 	$(PIP) install -r requirements.txt
-	@echo "✅ Instalación completada. Activa el entorno con: source $(VENV_DIR)/bin/activate"
+	@echo "Instalación completada. Activa el entorno con: source $(VENV_DIR)/bin/activate"
 
-run:
+backend:
 	@echo "Iniciando servidor FastAPI..."
 	# Se asume que tienes un archivo .env con tus variables (PROJECT_ID, etc.)
-	$(PYTHON) -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+	cd $(BACKEND_DIR) && $(VENV_DIR)/bin/python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+
+frontend:
+	@echo "Iniciando servidor de React..."
+	cd $(FRONTEND_DIR) && npm run dev
 
 freeze:
 	@echo "Actualizando requirements.txt..."

@@ -10,6 +10,7 @@ google-cloud-aiplatform
 google-adk
 google-cloud-secret-manager
 google-cloud-logging
+google-cloud-firestore
 
 # Seguridad
 python-jose[cryptography]
@@ -19,6 +20,7 @@ bcrypt==4.0.1
 # Resiliencia
 slowapi
 pybreaker
+python-json-logger
 
 # Utilidades
 python-dotenv
