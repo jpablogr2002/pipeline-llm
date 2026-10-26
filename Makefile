@@ -21,6 +21,8 @@ help:
 install:
 	@echo "Creando entorno virtual..."
 	python3 -m venv $(VENV_DIR)
+	@echo "Activando entorno virtual..."
+	source $(VENV_DIR)/bin/activate
 	@echo "Actualizando pip..."
 	pip install --upgrade pip
 	@echo "Instalando dependencias..."

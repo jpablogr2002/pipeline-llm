@@ -85,12 +85,6 @@ Instala el entorno virtual con las dependencias:
 make setup
 ```
 
-Instala las dependencias del backend desde la raíz del proyecto:
-
-```bash
-make backend
-```
-
 Consulta los comandos disponibles:
 
 ```bash
@@ -136,6 +130,18 @@ gcloud config set project TU_PROJECT_ID
 ```bash
 echo -n "TU_CLAVE_JWT" | gcloud secrets create JWT_SECRET_KEY --data-file=-
 echo -n "TU_PROJECT_ID" | gcloud secrets create GCP_PROJECT_ID --data-file=-
+```
+
+**Variables env en backend:**
+```bash
+GCP_PROJECT_ID=TU-PROJECT-ID
+GCP_REGION=TU_REGION
+
+JWT_SECRET_KEY=TU_LLAVE_SECRETA
+JWT_ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+COST_THRESHOLD_USD=0.05
 ```
 
 **Crear la cuenta de servicio:**
@@ -200,10 +206,6 @@ Documentación interactiva: `http://localhost:8080/docs`
 ### Opción A. Backend en Cloud Run
 
 Configura la URL desplegada en `frontend/src/api.js`.
-
-```bash
-make frontend
-```
 
 Abre `http://localhost:5173` en el navegador.
 
