@@ -101,6 +101,19 @@ source ~/.bashrc
 
 nvm install 20
 nvm use 20
+
+npm init -y
+npm install react react-dom react-router-dom axios lucide-react
+npm install -D vite @vitejs/plugin-react tailwindcss @tailwindcss/vite
+```
+Asegurarse que en el package.json la seccionde scripts este asi:
+```bash
+"scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+},
 ```
 
 Instala las dependencias del frontend:
