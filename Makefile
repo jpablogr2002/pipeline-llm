@@ -4,10 +4,8 @@
 BACKEND_DIR = backend
 FRONTEND_DIR = frontend
 VENV_DIR = .venv
-PYTHON = $(VENV_DIR)/bin/python
-PIP = $(VENV_DIR)/bin/pip
 
-.PHONY: help install run clean test freeze
+.PHONY: help install backend frontend freeze clean
 
 # ==========================================
 # Comandos Principales
@@ -24,15 +22,15 @@ install:
 	@echo "Creando entorno virtual..."
 	python3 -m venv $(VENV_DIR)
 	@echo "Actualizando pip..."
-	$(PIP) install --upgrade pip
+	pip install --upgrade pip
 	@echo "Instalando dependencias..."
-	$(PIP) install -r requirements.txt
+	pip install -r requirements.txt
 	@echo "Instalación completada. Activa el entorno con: source $(VENV_DIR)/bin/activate"
 
 backend:
 	@echo "Iniciando servidor FastAPI..."
 	# Se asume que tienes un archivo .env con tus variables (PROJECT_ID, etc.)
-	cd $(BACKEND_DIR) && $(VENV_DIR)/bin/python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+	cd $(BACKEND_DIR) && python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
 
 frontend:
 	@echo "Iniciando servidor de React..."
@@ -40,7 +38,7 @@ frontend:
 
 freeze:
 	@echo "Actualizando requirements.txt..."
-	$(PIP) freeze > requirements.txt
+	pip freeze > requirements.txt
 
 clean:
 	@echo "Limpiando entorno..."
